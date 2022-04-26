@@ -1,4 +1,4 @@
-#VRML_SIM R2021b utf8
+#VRML_SIM R2021a utf8
 WorldInfo {
   info [
     "CSCI 3302 Lab 4: Mapping"
@@ -30,21 +30,19 @@ RectangleArena {
     metalness 0
   }
 }
-DEF EPUCK E-puck {
+DEF MY_ROBOT E-puck {
   hidden translation_1 -0.026000163759919752 0.02000129172769444 1.6511218585172782e-06
   hidden rotation_1 0.9999999999353835 7.305465024266587e-06 -8.709941307511303e-06 0.0119289921952107
   hidden translation_2 0.025999835820885393 0.020001425538746922 -1.4256433845903597e-06
   hidden rotation_2 -0.9999999999963882 2.317424233444529e-06 1.3612687563598318e-06 6.270781320770202
   translation 0.197378 -6.39203e-05 0.677928
   rotation 0 1 0 3.14159
-  controller "csci3302_lab4"
+  controller "<extern>"
+  supervisor TRUE
   turretSlot [
     Display {
       width 300
       height 300
-    }
-    Lab4RobotisLds01 {
-      enablePhysics FALSE
     }
   ]
   groundSensorsSlot [

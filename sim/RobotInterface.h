@@ -26,13 +26,9 @@ public:
 
     timeStep = (int)getBasicTimeStep(); // set the control time step
     // get device tags from webots
-    left_wheel.reset(getMotor("left wheel motor"));
-    right_wheel.reset(getMotor("right wheel motor"));
+    left_wheel = getMotor("left wheel motor");
+    right_wheel = getMotor("right wheel motor");
 
-    for(int ii=0;ii<8;ii++){
-      distsen.push_back(getDistanceSensor("ps"+to_string(ii)));
-      distsen.at(ii)->enable(timeStep);
-    }
     groundsen.push_back(getDistanceSensor("gs0"));
     groundsen.push_back(getDistanceSensor("gs1"));
     groundsen.push_back(getDistanceSensor("gs2"));
@@ -42,7 +38,7 @@ public:
 
     display = getDisplay("display");
 
-    lidar = getLidar("LDS-02");
+    lidar = getLidar("LDS-01");
     lidar->enable(timeStep);
     lidar->enablePointCloud();
   }
@@ -55,19 +51,6 @@ public:
   void SetRightMotorSpeed(double speed){
     right_wheel->setPosition(INFINITY);
     right_wheel->setVelocity(speed);
-  }
-
-  void GetPosition(){
-
-  }
-
-  void getProximitySensors(vector<double>& values){
-    if(values.size()!=distsen.size()){
-      values.resize(distsen.size());
-    }
-    for(int ii=0;ii<distsen.size();ii++){
-      values.at(ii) = distsen.at(ii)->getValue();
-    }
   }
 
   void getGroundSensors(vector<double>& values){
@@ -97,10 +80,9 @@ public:
   }
 private:
   int timeStep;
-  shared_ptr<Motor> left_wheel;
-  shared_ptr<Motor> right_wheel;
+  Motor* left_wheel;
+  Motor* right_wheel;
   Node* robot_node;
-  vector<DistanceSensor*> distsen;
   vector<DistanceSensor*> groundsen;
   Display* display;
   Lidar* lidar;
